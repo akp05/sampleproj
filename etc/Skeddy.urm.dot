@@ -1,0 +1,109 @@
+digraph domain
+    {
+
+  edge [ fontsize = 11 ];
+  node [ shape=record ];
+  subgraph cluster_0
+  {
+
+    label = "com.rai.rough";
+    MrSkeddy [ label =
+    "{
+      MrSkeddy |
+      + main(args : String)\l
+    }" ]
+
+  }
+  subgraph cluster_1
+  {
+
+    label = "com.rai.rough.model";
+    ReservedDateSlot [ label = "
+    {
+      ReservedDateSlot |
+      + compareTo(object : ReservedDateSlot) : int\l
+      + getDateEnd() : Date\l
+      + getDateStart() : Date\l
+      + setDateEnd(dateEnd : Date)\l
+      + setDateStart(dateStart : Date)\l
+    }" ]
+    Schedule [ label = "
+    {
+      Schedule |
+      + getDateSet() : TreeMap<ReservedDateSlot, TreeSet<SlotInfo>>\l
+      + printSchedule()\l
+      + setDateSet(dateSet : TreeMap<ReservedDateSlot, TreeSet<SlotInfo>>)\l
+    }" ]
+    SlotInfo [ label = "
+    {
+      SlotInfo |
+      + compareTo(o : SlotInfo) : int\l
+      + getPriority() : int\l
+      + getText() : String\l
+      + setPriority(priority : int)\l
+      + setText(text : String)\l
+    }" ]
+    User [ label = "
+    {
+      User |
+      + getEmail() : String\l
+      + getSchedule() : Schedule\l
+      + getUserName() : String\l
+      + setEmail(email : String)\l
+      + setSchedule(schedule : Schedule)\l
+      + setUserName(userName : String)\l
+      + withEmail(email : String) : User\l
+      + withUserName(userName : String) : User\l
+    }" ]
+
+  }
+  subgraph cluster_2
+  {
+
+    label = "com.rai.rough.dataService";
+    UsernamePasswordMap [ label = "
+    {
+      UsernamePasswordMap |
+      + addUserNamePasswordEntry(userName : String, password : String, newUser : User)\l
+      + getUser(userName : String) : User\l
+      + getUserNameUserMap() : TreeMap<String, User>\l
+      + getUserPassword(userName : String) : String\l
+      + getuserNamePasswordMap() : TreeMap<String, String>\l
+      + userNameExists(userName : String) : boolean\l
+    }" ]
+
+  }
+  subgraph cluster_3
+  {
+
+    label = "com.rai.rough.operate";
+    LogInUser [ label = "
+    {
+      LogInUser |
+      + logInUser(userName : String, password : String) : User\l
+    }" ]
+    UserAuthenticator [ label = "
+    {
+      UserAuthenticator |
+      + authenticate(username : String, password : String) : boolean\l
+    }" ]
+    UserCreator [ label = "
+    {
+    UserCreator |
+    + createUser()\l
+    }" ]
+    UserScheduleBooker [ label = "
+    {
+    UserScheduleBooker |
+    + createAndBookSchedule(user : User)\l
+    }" ]
+    UserSchedulePrinter [ label = "
+    {
+    UserSchedulePrinter |
+    + printSchedule(user : User)\l
+    }" ]
+
+  }
+  User -> Schedule [ dir=back arrowtail=odiamond color=slategray];
+
+}
